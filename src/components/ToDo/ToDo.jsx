@@ -9,35 +9,20 @@ export default class ToDo extends Component {
     }
 
     transferToSecond() {
-        let taskIndex = this.state.firstList[0];
-        let newFirstList = this.state.firstList.slice(1);
-        let newSecondList = [taskIndex, ...this.state.secondList];
-
         this.setState({
-            firstList: newFirstList,
-            secondList: newSecondList
+            secondList: [this.state.firstList.shift(), ...this.state.secondList]
         });
     }
 
     transferToFirst() {
-        let taskIndex = this.state.secondList[0];
-        let newSecondList = this.state.secondList.slice(1);
-        let newFirstList = [taskIndex, ...this.state.firstList];
-
         this.setState({
-            firstList: newFirstList,
-            secondList: newSecondList
+            firstList: [this.state.secondList.shift(), ...this.state.firstList]
         });
     }
 
     transferToThird() {
-        let taskIndex = this.state.secondList[0];
-        let newSecondList = this.state.secondList.slice(1);
-        let newThirdList = [taskIndex, ...this.state.thirdList];
-
         this.setState({
-            secondList: newSecondList,
-            thirdList: newThirdList
+            thirdList: [this.state.secondList.shift(), ...this.state.thirdList]
         });
     }
 
@@ -52,29 +37,32 @@ export default class ToDo extends Component {
             <div className='three-lists'>
                 <List
                     list={this.state.firstList}
-                    actions={[{
-                        text: "Transfer first to right",
-                        action: this.transferToSecond.bind(this)
-                    }]}
-                />
+                    actions={[
+                        {
+                            text: "Transfer first to right",
+                            action: this.transferToSecond.bind(this)
+                        }
+                ]}/>
                 <List
                     list={this.state.secondList}
-                    actions={[{
-                        text: "Transfer first to left",
-                        action: this.transferToFirst.bind(this)
-                    },
-                    {
-                        text: "Transfer first to right",
-                        action: this.transferToThird.bind(this)
-                    }]}
-                />
+                    actions={[
+                        {
+                            text: "Transfer first to left",
+                            action: this.transferToFirst.bind(this)
+                        },
+                        {
+                            text: "Transfer first to right",
+                            action: this.transferToThird.bind(this)
+                        }
+                    ]}/>
                 <List
                     list={this.state.thirdList}
-                    actions={[{
-                        text: "Remove last item",
-                        action: this.removeLastItem.bind(this)
-                    }]}
-                />
+                    actions={[
+                        {
+                            text: "Remove last item",
+                            action: this.removeLastItem.bind(this)
+                        }
+                    ]}/>
             </div>
         )
     }

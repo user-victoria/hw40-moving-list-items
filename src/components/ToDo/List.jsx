@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 
 export default class List extends Component {
     render() {
+        let { list, actions } = this.props;
+
         return (
             <div>
                 <ul>
-                    {this.props.list.map((item) => (
-                        <li key={item.id}>{item.title}</li>
+                    {list.map(item => (
+                        <li key={item.id}>
+                            {item.title}
+                        </li>
                     ))}
                 </ul>
-                {this.props.list.length > 0 && (this.props.actions.map((item, index) => (
-                    <button key={index} onClick={item.action}>{item.text}</button>
+                {list.length > 0 && (actions.map((item, index) => (
+                    <button key={index} onClick={item.action}>
+                        {item.text}
+                    </button>
                 )))}
             </div>
         )
